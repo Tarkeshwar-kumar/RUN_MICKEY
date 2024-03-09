@@ -19,6 +19,7 @@
                 top: 0;  
                 left: 50%; 
                 transform: translateX(-50%); 
+                animation: moveDot 2s linear infinite;
             }
             body {
                 display: flex;
@@ -32,6 +33,14 @@
                 max-width: 100%;
                 max-height: 100%;
             }
+            @keyframes moveDot {
+            0% {
+                transform: translateY(100vh); /* Start from the bottom of the viewport */
+            }
+            100% {
+                transform: translateY(-5px); /* Move to the top, leaving a small gap at the end */
+            }
+        }
         </style>
         <script type="text/javascript">
             //init object globally
