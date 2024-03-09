@@ -16,16 +16,35 @@
                 max-width: 100%;
                 max-height: 100%;
             }
+            .dot {
+                width: 5px;
+                height: 5px;
+                background: #000;
+                border-radius: 50%;
+                position: absolute;
+                animation: moveDot 2s linear infinite; /* Adjust animation duration and timing function */
+            }
+
+            @keyframes moveDot {
+                0% {
+                    transform: translateY(100vh); /* Start from the bottom of the viewport */
+                }
+                100% {
+                    transform: translateY(-5px); /* Move to the top, leaving a small gap at the end */
+                }
+            }
         </style>
         <script type="text/javascript">
             //init object globally
             var objImage = null;
+            var dots = [];
             function init() {
                 objImage = document.getElementById("rocket");
 
                 objImage.style.position = "relative";
                 objImage.style.left = "0px";
                 objImage.style.top = "0px";
+                createDottedLine();
             }
             function getKeyAndMove(e) {
                 var key_code = e.keyCode;
@@ -41,14 +60,44 @@
             }
             function moveLeft() {
                 objImage.style.left = parseInt(objImage.style.left) - 5 + "px";
+                // updateDottedLinePosition();
             }
             function moveRight() {
                 objImage.style.left = parseInt(objImage.style.left) + 5 + "px";
+                // updateDottedLinePosition();
+            }
+            function createDottedLine() {
+            // Number of dots in the line
+                const numberOfDots = 100;
+                const container = document.body;
+
+                for (let i = 0; i < numberOfDots; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+
+                // Set the initial position of each dot
+                    dot.style.top = `${(i / numberOfDots) * 100}vh`+ "10px";
+
+                    container.appendChild(dot);
+                }
+            }
+            function updateDottedLinePosition() {
+            // Update the position of each dot based on the new position of the image
+                const imageRect = objImage.getBoundingClientRect();
+
+                for (let i = 0; i < dots.length; i++) {
+                    const dot = dots[i];
+                    const dotTop = (i / dots.length) * imageRect.height;
+                    dot.style.top = (dotTop + imageRect.top) + "px";
+                    dot.style.left = imageRect.left + "px";
+                }   
             }
             window.onload = init;
         </script>       
     </head>
 <body onkeydown="getKeyAndMove(event)">
-    <img id="rocket" src="{% static 'img/360_F_500928932_xssY3GuM0xDpyK3t1fWREoYvG356L5qE.jpg' %}" >
+    <div id="rocket" class="vl">
+        <img src="{% static 'img/360_F_500928932_xssY3GuM0xDpyK3t1fWREoYvG356L5qE.jpg' %}" >
+    </div>
 </body>
 </html>
