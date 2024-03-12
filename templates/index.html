@@ -18,7 +18,7 @@
                 position: absolute;
                 top: 0;  
                 left: 50%; 
-                transform: translateX(-50%); 
+                transform: translateX(-100%); 
                 animation: moveDot 2s linear infinite;
             }
             body {
@@ -29,18 +29,37 @@
                 margin: 0;
                 overflow: hidden;
             }
+            .bomb {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 0;  
+                left: 50%; 
+                transform: translateX(-100%); 
+                animation: moveBomb 2s linear infinite;
+            }
             #rocket {
-                max-width: 100%;
-                max-height: 100%;
+                max-width: 50%;
+                max-height: 0%;
             }
+            
             @keyframes moveDot {
-            0% {
-                transform: translateY(100vh); /* Start from the bottom of the viewport */
+                0% {
+                    transform: translateY(20vh); /* Start from the bottom of the viewport */
+                }
+                100% {
+                    transform: translateY(-200px); /* Move to the top, leaving a small gap at the end */
+                }
             }
-            100% {
-                transform: translateY(-5px); /* Move to the top, leaving a small gap at the end */
+            @keyframes moveBomb {
+                0% {
+                    transform: translateY(-200px); /* Start from the bottom of the viewport */
+                }
+                100% {
+                    transform: translateY(70vh); /* Move to the top, leaving a small gap at the end */
+                }
             }
-        }
         </style>
         <script type="text/javascript">
             //init object globally
@@ -51,6 +70,7 @@
                 objImage.style.position = "relative";
                 objImage.style.left = "0px";
                 objImage.style.top = "0px";
+                dropIMage();
             }
             function getKeyAndMove(e) {
                 var key_code = e.keyCode;
@@ -71,6 +91,21 @@
                 objImage.style.left = parseInt(objImage.style.left) + 5 + "px";
             }
             window.onload = init;
+            function getRandomLeft() {
+                return randomLeft + "px";
+            }
+            function dropIMage() {
+                var img = document.createElement("img");
+                img.src = "{% static 'img/download.jpeg' %}";
+                img.width = 50;
+                img.height = 70;
+                img.style.position = "absolute";
+                img.style.left = getRandomLeft();
+                img.style.top = "10%";
+                img.style.transform = "translate(-50%, 0%)";
+                img.className = "bomb"
+                document.body.appendChild(img); 
+            }
         </script>       
     </head>
 <body onkeydown="getKeyAndMove(event)">
