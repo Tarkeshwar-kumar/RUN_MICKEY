@@ -64,6 +64,7 @@
         <script type="text/javascript">
             //init object globally
             var objImage = null;
+            var bombElement = null;
             function init() {
                 objImage = document.getElementById("rocket");
 
@@ -71,6 +72,7 @@
                 objImage.style.left = "0px";
                 objImage.style.top = "0px";
                 dropIMage();
+                setInterval(checkCollision, 1);
             }
             function getKeyAndMove(e) {
                 var key_code = e.keyCode;
@@ -105,8 +107,24 @@
                 img.style.left = getRandomLeft();
                 img.style.top = "10%";
                 img.style.transform = "translate(-50%, 0%)";
-                img.className = "bomb"
+                img.className = "bomb";
+                bombElement = img;
                 document.body.appendChild(img); 
+            }
+            async function checkCollision() {
+                var dotRect = document.querySelector('.dot').getBoundingClientRect();
+                var bombRect = bombElement.getBoundingClientRect();
+                // console.log(dotRect);
+                // console.log(bombRect);
+                if (
+                    dotRect.left < bombRect.right &&
+                    dotRect.right > bombRect.left &&
+                    dotRect.top < bombRect.bottom &&
+                    dotRect.bottom > bombRect.top
+                ){
+                    bombElement.parentNode.removeChild(bombElement);
+                    dropIMage();
+                }
             }
         </script>       
     </head>
