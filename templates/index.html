@@ -92,11 +92,13 @@
             }
             window.onload = init;
             function getRandomLeft() {
+                // Generate a random left position between 0 and the width of the viewport
+                var randomLeft = Math.floor(Math.random() * window.innerWidth);
                 return randomLeft + "px";
             }
             function dropIMage() {
                 var img = document.createElement("img");
-                img.src = "{% static 'img/download.jpeg' %}";
+                img.src = "{% static 'img/download.jpg' %}";
                 img.width = 50;
                 img.height = 70;
                 img.style.position = "absolute";
