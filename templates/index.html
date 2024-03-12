@@ -60,11 +60,19 @@
                     transform: translateY(70vh); /* Move to the top, leaving a small gap at the end */
                 }
             }
+            #score {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                font-size: 24px;
+                color: rgb(190, 16, 16);
+            }   
         </style>
         <script type="text/javascript">
             //init object globally
             var objImage = null;
             var bombElement = null;
+            var score = 0;
             function init() {
                 objImage = document.getElementById("rocket");
 
@@ -122,6 +130,8 @@
                     dotRect.top < bombRect.bottom &&
                     dotRect.bottom > bombRect.top
                 ){
+                    score++;
+                    document.getElementById('score').innerHTML = 'Score: ' + score;
                     bombElement.parentNode.removeChild(bombElement);
                     dropIMage();
                 }
@@ -132,6 +142,9 @@
     <div id="rocket" class="dot-container">
         <div class="dot"></div>
         <img src="{% static 'img/360_F_500928932_xssY3GuM0xDpyK3t1fWREoYvG356L5qE.jpg' %}" >
+    </div>
+    <div>
+        <h3 id="score">Score: 0</h3>
     </div>
 </body>
 </html>
