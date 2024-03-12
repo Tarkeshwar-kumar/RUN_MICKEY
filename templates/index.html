@@ -46,18 +46,18 @@
             
             @keyframes moveDot {
                 0% {
-                    transform: translateY(20vh); /* Start from the bottom of the viewport */
+                    transform: translateY(20vh); 
                 }
                 100% {
-                    transform: translateY(-200px); /* Move to the top, leaving a small gap at the end */
+                    transform: translateY(-200px);
                 }
             }
             @keyframes moveBomb {
                 0% {
-                    transform: translateY(-200px); /* Start from the bottom of the viewport */
+                    transform: translateY(-200px);
                 }
                 100% {
-                    transform: translateY(70vh); /* Move to the top, leaving a small gap at the end */
+                    transform: translateY(70vh); 
                 }
             }
             #score {
@@ -69,7 +69,6 @@
             }   
         </style>
         <script type="text/javascript">
-            //init object globally
             var objImage = null;
             var bombElement = null;
             var score = 0;
@@ -86,10 +85,10 @@
                 var key_code = e.keyCode;
                 console.log(key_code);
                 switch (key_code) {
-                    case 37: //left arrow key
+                    case 37: 
                         moveLeft();
                         break;
-                    case 39: //right arrow key
+                    case 39: 
                         moveRight();
                         break;
                 }
@@ -102,7 +101,6 @@
             }
             window.onload = init;
             function getRandomLeft() {
-                // Generate a random left position between 0 and the width of the viewport
                 var randomLeft = Math.floor(Math.random() * window.innerWidth);
                 return randomLeft + "px";
             }
@@ -122,8 +120,6 @@
             async function checkCollision() {
                 var dotRect = document.querySelector('.dot').getBoundingClientRect();
                 var bombRect = bombElement.getBoundingClientRect();
-                // console.log(dotRect);
-                // console.log(bombRect);
                 if (
                     dotRect.left < bombRect.right &&
                     dotRect.right > bombRect.left &&
